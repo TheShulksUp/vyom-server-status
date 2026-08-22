@@ -59,6 +59,26 @@ details. A short delay is normal while GitHub Pages updates.
 
 ## Common errors
 
+## If a command says `No such file or directory`
+
+Do not run more repair commands yet. First collect this diagnostic information:
+
+```bash
+pwd
+ls -la
+ls -la ~/vyom-server-status
+find ~/vyom-server-status -maxdepth 2 -type f 2>&1
+```
+
+`pwd` shows your current folder. The next commands show whether the project was
+cloned in the expected place and whether it has the latest scripts.
+
+To copy the result from the Fedora Terminal, select the printed text with the
+mouse and press **Ctrl+Shift+C**. This Codex task cannot be opened in Fedora's
+web browser, so return to this task on macOS and paste the result with
+**Command+V**. If you instead open a new ChatGPT chat on Fedora, include this
+repository link and the full copied output.
+
 ### `git: command not found`
 
 Install Git, then repeat the setup command that failed:
