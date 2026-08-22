@@ -96,6 +96,24 @@ cd ~/vyom-server-status
 git pull --ff-only
 ```
 
+### `The following untracked working tree files would be overwritten by merge: index.html`
+
+This means the Fedora copy is older and has a local `index.html` that Git is
+protecting. Keep that file as a backup, then update the repository:
+
+```bash
+cd ~/vyom-server-status
+mv index.html index.html.fedora-backup
+git pull --ff-only
+ls -la scripts
+```
+
+The old page is not deleted; it is renamed to `index.html.fedora-backup`. The
+last command should show `update-status.sh` and
+`install-fedora-heartbeat.sh`. If `index.html.fedora-backup` already exists,
+choose a different backup name, such as `index.html.fedora-backup-2`, before
+running the `mv` command.
+
 ### `Permission denied` when running a script
 
 Make both scripts executable again:
