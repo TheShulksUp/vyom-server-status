@@ -1,0 +1,7 @@
+[Unit]
+Description=Send Vyom server-status Fedora heartbeat
+
+[Service]
+Type=oneshot
+WorkingDirectory=%h/vyom-server-status
+ExecStart=%h/vyom-server-status/scripts/update-status.sh fedora

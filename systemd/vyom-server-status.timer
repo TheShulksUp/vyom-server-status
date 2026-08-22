@@ -1,0 +1,10 @@
+[Unit]
+Description=Run Vyom server-status heartbeat every minute
+
+[Timer]
+OnBootSec=1min
+OnUnitActiveSec=1min
+Unit=vyom-server-status.service
+
+[Install]
+WantedBy=timers.target

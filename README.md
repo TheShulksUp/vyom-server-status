@@ -31,17 +31,17 @@ Then enable GitHub Pages in the repository: **Settings → Pages → Deploy from
 branch → main → /(root) → Save**. The published dashboard will be at
 `https://theshulksup.github.io/vyom-server-status/`.
 
-To test the recurring heartbeat before automating it:
+To run the macOS heartbeat automatically in the background, create this
+LaunchAgent once:
 
 ```bash
-while true; do
-  ./scripts/update-status.sh macos
-  sleep 60
-done
+mkdir -p ~/Library/LaunchAgents ~/Library/Logs
+cp launchd/com.vyom.server-status.plist ~/Library/LaunchAgents/
+launchctl bootstrap gui/$(id -u) ~/Library/LaunchAgents/com.vyom.server-status.plist
 ```
 
-Stop the test with Control-C. A later setup step can replace this test loop with
-a macOS LaunchAgent and a Fedora systemd timer.
+It runs at login and then once a minute. Check it with
+`launchctl print gui/$(id -u)/com.vyom.server-status`.
 
 ## Fedora setup after Fedora boots
 
@@ -49,8 +49,16 @@ Clone this same repository in Fedora, authenticate Git pushes, then run:
 
 ```bash
 cd ~/vyom-server-status
-chmod +x scripts/update-status.sh
+chmod +x scripts/update-status.sh scripts/install-fedora-heartbeat.sh
 ./scripts/update-status.sh fedora
+./scripts/install-fedora-heartbeat.sh
+```
+
+The final command installs a Fedora user timer. It runs in the background at
+login and then once a minute. Check it with:
+
+```bash
+systemctl --user status vyom-server-status.timer
 ```
 
 The Fedora page is `fedora.html`; the live status dashboard is always
