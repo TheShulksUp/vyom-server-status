@@ -167,6 +167,33 @@ cd ~/vyom-server-status
 Do not enter your GitHub account password directly into Git; use the browser
 sign-in above.
 
+### Git asks for `Username for 'https://github.com'`
+
+This is a sign-in prompt, not a normal Terminal prompt. Do **not** type the
+next setup command there: Git would treat it as a username. Press **Ctrl+C** to
+cancel the prompt, then set up GitHub CLI authentication with one command at a
+time:
+
+```bash
+sudo dnf install gh
+gh auth login
+```
+
+During `gh auth login`, choose **GitHub.com**, **HTTPS**, and the browser
+sign-in option. Wait for it to finish before typing anything else. Then run:
+
+```bash
+gh auth setup-git
+cd ~/vyom-server-status
+git push origin main
+./scripts/install-fedora-heartbeat.sh
+systemctl --user status vyom-server-status.timer
+```
+
+If you accidentally typed a command at a Git username or password prompt, no
+project files were harmed. Cancel the prompt with **Ctrl+C** and follow the
+steps above.
+
 ### `fatal: not a git repository`
 
 You are not in the project folder. Run:
