@@ -45,6 +45,9 @@ It runs at login and then once a minute. Check it with
 
 ## Fedora setup after Fedora boots
 
+For the complete beginner-friendly setup and error guide, read
+[FEDORA-SETUP.md](FEDORA-SETUP.md).
+
 Clone this same repository in Fedora, authenticate Git pushes, then run:
 
 ```bash
