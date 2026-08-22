@@ -11,6 +11,11 @@ only when its latest heartbeat is less than three minutes old. Therefore, when
 the machine is off (or neither OS is running the heartbeat), the site naturally
 changes to **offline** without needing a paid monitoring service.
 
+While a heartbeat is fresh, the dashboard also shows safe system details:
+operating-system version, CPU architecture, uptime, disk-space summary, and
+whether Nginx is detected. It intentionally does not publish network addresses,
+usernames, or file paths.
+
 ## First-time setup on macOS
 
 ```bash

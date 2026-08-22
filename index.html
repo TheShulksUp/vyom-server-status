@@ -22,6 +22,7 @@
       <dt>Current system</dt><dd id="system"></dd>
       <dt>Last heartbeat</dt><dd id="updated"></dd>
     </dl>
+    <dl id="live-details" hidden></dl>
     <p id="message" class="muted"></p>
   </main>
   <p><a href="macos.html">macOS details</a> · <a href="fedora.html">Fedora details</a></p>
@@ -29,6 +30,13 @@
   <script>
     const maxAgeMs = 3 * 60 * 1000;
     const names = { macos: "macOS", fedora: "Fedora Linux" };
+    const detailLabels = {
+      osVersion: "Operating system",
+      architecture: "Architecture",
+      uptime: "Uptime",
+      diskSpace: "Disk space",
+      nginx: "Nginx"
+    };
     async function showStatus() {
       const state = document.querySelector("#state");
       const message = document.querySelector("#message");
@@ -43,6 +51,19 @@
         document.querySelector("#details").hidden = false;
         document.querySelector("#system").textContent = names[data.system] || data.system || "Unknown";
         document.querySelector("#updated").textContent = new Date(data.updatedAt).toLocaleString();
+        const liveDetails = document.querySelector("#live-details");
+        liveDetails.replaceChildren();
+        if (fresh && data.details) {
+          for (const [key, label] of Object.entries(detailLabels)) {
+            if (!data.details[key]) continue;
+            const term = document.createElement("dt");
+            const definition = document.createElement("dd");
+            term.textContent = label;
+            definition.textContent = data.details[key];
+            liveDetails.append(term, definition);
+          }
+        }
+        liveDetails.hidden = !fresh || liveDetails.children.length === 0;
         message.textContent = fresh
           ? "This system sent a heartbeat within the last three minutes."
           : "The last heartbeat is more than three minutes old, so neither system is considered online.";
