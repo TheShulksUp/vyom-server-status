@@ -1,10 +1,10 @@
 {
   "system": "macos",
-  "updatedAt": "2026-08-29T00:19:45Z",
+  "updatedAt": "2026-08-29T00:20:48Z",
   "details": {
     "osVersion": "macOS 27.0",
     "architecture": "arm64",
-    "uptime": "9 mins",
+    "uptime": "10 mins",
     "diskSpace": "12Gi used of 857Gi (25%)",
     "nginx": "Not detected"
   }
